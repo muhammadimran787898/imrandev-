@@ -15,6 +15,29 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+greeting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Greeting Message
+        run: |
+          echo "🎉 Hello! Thanks for contributing to this project!"
+          echo "📦 Starting CI/CD pipeline..."
+          echo "🔄 Triggered by: ${{ github.actor }}"
+          echo "📝 Commit message: ${{ github.event.head_commit.message }}"
+          echo "🌿 Branch: ${{ github.ref_name }}"
+          echo "⏰ Time: $(date)"
+          echo "🚀 Let's build something awesome!"
+      
+      - name: Custom Greeting with Emojis
+        run: |
+          echo "╔════════════════════════════════════════╗"
+          echo "║     🚀 WELCOME TO CI PIPELINE 🚀       ║"
+          echo "╚════════════════════════════════════════╝"
+          echo ""
+          echo "👋 Hey ${{ github.actor }}!"
+          echo "💻 Your code is being processed..."
+          echo "✨ Sit back and relax while we build your project"
+          echo ""
   # Build and test job
   build:
     # The type of runner that the job will run on
