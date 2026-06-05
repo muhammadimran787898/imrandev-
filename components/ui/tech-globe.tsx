@@ -548,12 +548,6 @@ export function TechGlobe() {
         }
       `}</style>
 
-      <div className="tech-globe__panel-copy">
-        <span><i /> Global Systems</span>
-        <strong>Tech Stack Network</strong>
-        <small>Drag the globe. Scan the stack.</small>
-      </div>
-
       <GlobeCanvas />
 
       <div className="tech-chip-field">

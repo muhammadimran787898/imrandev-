@@ -1,21 +1,18 @@
-import { TechGlobe } from "@/components/ui/tech-globe";
+import { HeroParallax } from "@/components/ui/hero-parallax";
 import { ProjectShowcase } from "@/components/ui/project-showcase";
+import { BusinessProcess } from "@/components/ui/business-process";
+import { SkillOrbitSection } from "@/components/ui/skill-orbit-section";
+import { ThemeComparison } from "@/components/ui/theme-comparison";
 
 const navItems = [
   ["About", "#about"],
+  ["Theme", "#theme"],
+  ["Process", "#process"],
+  ["Stack", "#stack"],
   ["Experience", "#experience"],
   ["Skills", "#skills"],
   ["Projects", "#projects"],
   ["Contact", "#contact"],
-];
-
-const heroSkills = [
-  "React / Next.js",
-  "Node.js / NestJS",
-  "RAG Systems",
-  "n8n Agents",
-  "AWS / DevOps",
-  "Vue / Nuxt",
 ];
 
 const highlights = [
@@ -218,6 +215,76 @@ const projects = [
   },
 ];
 
+function escapeSvgText(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function createProjectThumbnail(
+  project: (typeof projects)[number],
+  index: number
+) {
+  const palettes = [
+    ["#49d3ff", "#5ee6a8", "#111827"],
+    ["#9b8cff", "#ff6f91", "#13111f"],
+    ["#f8c15c", "#49d3ff", "#17140d"],
+    ["#5ee6a8", "#f8c15c", "#0f1c18"],
+    ["#ff6f91", "#9b8cff", "#1a1018"],
+  ];
+  const [primary, secondary, base] = palettes[index % palettes.length];
+  const title = escapeSvgText(project.title);
+  const code = escapeSvgText(project.code);
+  const tags = escapeSvgText(project.tags.slice(0, 3).join(" / "));
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="${base}"/>
+          <stop offset="62%" stop-color="#333333"/>
+          <stop offset="100%" stop-color="#242424"/>
+        </linearGradient>
+        <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="${primary}"/>
+          <stop offset="100%" stop-color="${secondary}"/>
+        </linearGradient>
+        <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="22" result="blur"/>
+          <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.52 0"/>
+          <feMerge>
+            <feMergeNode/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      <rect width="900" height="640" rx="34" fill="url(#bg)"/>
+      <path d="M0 112H900M0 224H900M0 336H900M0 448H900M0 560H900M112 0V640M224 0V640M336 0V640M448 0V640M560 0V640M672 0V640M784 0V640" stroke="white" stroke-opacity=".06"/>
+      <circle cx="690" cy="142" r="240" fill="${primary}" opacity=".12" filter="url(#glow)"/>
+      <circle cx="146" cy="540" r="210" fill="${secondary}" opacity=".12" filter="url(#glow)"/>
+      <rect x="64" y="64" width="772" height="508" rx="28" fill="white" opacity=".035" stroke="white" stroke-opacity=".14"/>
+      <rect x="94" y="94" width="104" height="42" rx="21" fill="url(#accent)" opacity=".9"/>
+      <text x="146" y="122" text-anchor="middle" fill="#333333" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="900">${code}</text>
+      <text x="94" y="276" fill="#f7fbff" font-family="Arial, Helvetica, sans-serif" font-size="60" font-weight="900">${title}</text>
+      <text x="96" y="330" fill="#a9b4c7" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">${tags}</text>
+      <path d="M96 420 C210 365 320 474 430 420 S650 360 768 424" fill="none" stroke="url(#accent)" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="96" cy="420" r="10" fill="${primary}"/>
+      <circle cx="430" cy="420" r="10" fill="${secondary}"/>
+      <circle cx="768" cy="424" r="10" fill="${primary}"/>
+      <text x="96" y="510" fill="#dfe7f5" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" opacity=".8">Production system / real users / scalable delivery</text>
+    </svg>
+  `;
+
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+
+const heroProducts = projects.map((project, index) => ({
+  title: project.title,
+  link: project.url,
+  thumbnail: createProjectThumbnail(project, index),
+}));
+
 const education = [
   {
     date: "Aug 2016 - Aug 2020",
@@ -272,44 +339,15 @@ export default function Home() {
         </nav>
       </header>
 
-      <section className="hero-section" id="home">
-        <div className="hero-visual">
-          <TechGlobe />
-        </div>
-        <div className="hero-content">
-          <p className="eyebrow"><span /> Available for remote opportunities</p>
-          <h1>
-            Muhammad Imran
-            <span>AI Engineer & Enterprise Architect</span>
-          </h1>
-          <p className="hero-copy">
-            Realizing visions from MERN Stack Developer to AI Engineer. I build intelligent, production-ready systems that scale across product, cloud, and automation.
-          </p>
-          <div className="pill-row" aria-label="Core skills">
-            {heroSkills.map((skill) => (
-              <span key={skill}>{skill}</span>
-            ))}
-          </div>
-          <div className="hero-actions">
-            <a className="button primary" href="#contact">
-              Get In Touch
-            </a>
-            <a
-              className="button secondary"
-              href="https://github.com/muhammadimran787898"
-              target="_blank"
-              rel="noreferrer"
-            >
-              View GitHub
-            </a>
-          </div>
-        </div>
-        <div className="hero-stats" aria-label="Professional stats">
-          <div><strong>6+</strong><span>Years Experience</span></div>
-          <div><strong>15+</strong><span>Projects Delivered</span></div>
-          <div><strong>5+</strong><span>Companies Served</span></div>
-        </div>
+      <HeroParallax products={heroProducts} />
+
+      <ThemeComparison />
+
+      <section className="process-section" id="process">
+        <BusinessProcess />
       </section>
+
+      <SkillOrbitSection />
 
       <section className="content-section" id="about">
         <SectionHeader label="About Me" title="Building the future, one system at a time" />
