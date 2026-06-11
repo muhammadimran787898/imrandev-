@@ -1,36 +1,13 @@
 import { HeroParallax } from "@/components/ui/hero-parallax";
 import { ProjectShowcase } from "@/components/ui/project-showcase";
-import { BusinessProcess } from "@/components/ui/business-process";
 import { SkillOrbitSection } from "@/components/ui/skill-orbit-section";
-import { ThemeComparison } from "@/components/ui/theme-comparison";
 
 const navItems = [
-  ["About", "#about"],
-  ["Theme", "#theme"],
-  ["Process", "#process"],
   ["Stack", "#stack"],
   ["Experience", "#experience"],
   ["Skills", "#skills"],
   ["Projects", "#projects"],
   ["Contact", "#contact"],
-];
-
-const highlights = [
-  {
-    kicker: "AI",
-    title: "AI Engineer",
-    text: "RAG pipelines, LLM integration, n8n workflows, MCP, and autonomous AI agents with OpenAI and Anthropic APIs.",
-  },
-  {
-    kicker: "FS",
-    title: "Full-Stack Architect",
-    text: "End-to-end systems with React, Next.js, Vue, Nuxt, NestJS, Node.js, PostgreSQL, MongoDB, and Redis.",
-  },
-  {
-    kicker: "CL",
-    title: "DevOps & Cloud",
-    text: "Docker, Kubernetes, AWS ECS, EC2, Lambda, Terraform, GitHub Actions CI/CD, and observability stacks.",
-  },
 ];
 
 const experiences = [
@@ -341,39 +318,7 @@ export default function Home() {
 
       <HeroParallax products={heroProducts} />
 
-      <ThemeComparison />
-
-      <section className="process-section" id="process">
-        <BusinessProcess />
-      </section>
-
       <SkillOrbitSection />
-
-      <section className="content-section" id="about">
-        <SectionHeader label="About Me" title="Building the future, one system at a time" />
-        <div className="about-grid">
-          <div className="rich-copy">
-            <p>
-              As a highly motivated <strong>Full-Stack Engineer and AI Engineer</strong> progressing toward Enterprise Architecture, I craft dynamic, intelligent web applications for e-commerce, healthcare, trading systems, and AI-powered products.
-            </p>
-            <p>
-              My expertise spans the modern stack: sleek frontends, robust backends, <strong>cloud infrastructure</strong>, LLM integration, RAG pipelines, agentic workflows, and autonomous AI agents.
-            </p>
-            <p>
-              I focus on solving complex challenges with elegant, efficient code while keeping user experience, performance, and deployment quality at the center.
-            </p>
-          </div>
-          <div className="highlight-stack">
-            {highlights.map((item) => (
-              <article className="highlight-card" key={item.title}>
-                <span>{item.kicker}</span>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section className="content-section band" id="experience">
         <SectionHeader
